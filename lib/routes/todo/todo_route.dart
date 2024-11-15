@@ -21,7 +21,11 @@ class TodoRoute extends StatelessWidget {
             itemCount: controller.tasks.length,
             itemBuilder: (context, index) {
               TaskModel model = controller.tasks[index];
-              return TodoRouteComponent.task(model);
+              return TodoRouteComponent.task(
+                model: model,
+                onStatusChanged: controller.onStatusChanged,
+                onDeleted: controller.onDeleted,
+              );
             },
           );
         },

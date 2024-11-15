@@ -14,4 +14,20 @@ class TaskModel {
     required this.createdAt,
     required this.lastUpdatedAt,
   });
+
+  TaskModel copyWith({
+    String? title,
+    String? description,
+    TaskStatus? status,
+    int? createdAt,
+    int? lastUpdatedAt,
+  }) {
+    return TaskModel(
+      title: title ?? this.title,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      lastUpdatedAt: lastUpdatedAt ?? this.lastUpdatedAt,
+    );
+  }
 }

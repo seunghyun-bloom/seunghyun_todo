@@ -1,26 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';
 import 'package:seunghyun_todo/infra/tools/format_client.dart';
+import 'package:seunghyun_todo/infra/tools/util_client.dart';
 
 class TodoRouteComponent {
-  static Widget task(TaskModel model) {
-    return ExpansionTile(
-      title: Text(model.title),
-      subtitle: Text(
-        FormatClient.date(model.lastUpdatedAt),
+  static Widget task({
+    required TaskModel model,
+    required Function(TaskModel model, TaskStatus newStatus) onStatusChanged,
+    required Function(TaskModel model) onDeleted,
+  }) {
+    return Slidable(
+      key: Key('${model.title}-${model.createdAt}'),
+      startActionPane: ActionPane(
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (_) => onStatusChanged(model, TaskStatus.yet),
+            backgroundColor: UtilClient.statusColor(TaskStatus.yet),
+            foregroundColor: Colors.white,
+            icon: Icons.close,
+          ),
+          SlidableAction(
+            onPressed: (_) => onStatusChanged(model, TaskStatus.now),
+            backgroundColor: UtilClient.statusColor(TaskStatus.now),
+            foregroundColor: Colors.white,
+            icon: Icons.play_arrow,
+          ),
+          SlidableAction(
+            onPressed: (_) => onStatusChanged(model, TaskStatus.done),
+            backgroundColor: UtilClient.statusColor(TaskStatus.done),
+            foregroundColor: Colors.white,
+            icon: Icons.check,
+          )
+        ],
       ),
-      trailing: Text(
-        FormatClient.taskStatus(model.status),
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (_) => onDeleted(model),
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: '삭제',
+          )
+        ],
       ),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(model.description ?? ''),
+      child: ListTile(
+        tileColor: Colors.grey.withOpacity(0.1),
+        title: Text(model.title),
+        subtitle: Text(
+          FormatClient.date(model.lastUpdatedAt),
         ),
-      ],
+        trailing: Text(
+          FormatClient.taskStatus(model.status),
+          style: TextStyle(
+            color: UtilClient.statusColor(model.status),
+          ),
+        ),
+      ),
     );
+  }
+
+  static Widget detailDialog(TaskModel model) {
+    return Center();
   }
 
   static Widget createDialog() {

@@ -15,6 +15,23 @@ class TodoRouteController extends GetxController {
   // ! ---- 할일 목록 ----
   List<TaskModel> tasks = [];
 
+  // ! ---- 할일 제어 ----
+  onStatusChanged(TaskModel model, TaskStatus newStatus) {
+    TaskModel updatedTaks = model.copyWith(
+      status: newStatus,
+      lastUpdatedAt: DateTime.now().millisecondsSinceEpoch,
+    );
+    int index = tasks.indexOf(model);
+    tasks.remove(model);
+    tasks.insert(index, updatedTaks);
+    update();
+  }
+
+  onDeleted(TaskModel model) {
+    tasks.remove(model);
+    update();
+  }
+
   // ! ---- FAB ----
   onTapFAB() {
     return Get.dialog(TodoRouteComponent.createDialog()).then((result) {
