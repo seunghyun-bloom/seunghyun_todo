@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:seunghyun_todo/infra/components/core/custom_container.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';
@@ -11,9 +12,10 @@ class TodoRouteComponent {
     required TaskModel model,
     required Function(TaskModel model, TaskStatus newStatus) onStatusChanged,
     required Function(TaskModel model) onDeleted,
+    required Function(TaskModel model) onTap,
   }) {
     return Slidable(
-      key: Key('${model.title}-${model.createdAt}'),
+      key: Key(model.id),
       startActionPane: ActionPane(
         motion: const StretchMotion(),
         children: [
@@ -53,7 +55,7 @@ class TodoRouteComponent {
         tileColor: Colors.grey.withOpacity(0.1),
         title: Text(model.title),
         subtitle: Text(
-          FormatClient.date(model.lastUpdatedAt),
+          FormatClient.dateTime(model.lastUpdatedAt),
         ),
         trailing: Text(
           FormatClient.taskStatus(model.status),
@@ -61,12 +63,9 @@ class TodoRouteComponent {
             color: UtilClient.statusColor(model.status),
           ),
         ),
+        onTap: () => onTap(model),
       ),
     );
-  }
-
-  static Widget detailDialog(TaskModel model) {
-    return Center();
   }
 
   static Widget createDialog() {
@@ -97,6 +96,7 @@ class TodoRouteComponent {
                 label: Text('제목'),
                 hintText: 'ex) 마트에서 장보기',
               ),
+              maxLength: 16,
               controller: titleEC,
             ),
             const SizedBox(height: 20),
@@ -105,6 +105,8 @@ class TodoRouteComponent {
                 label: Text('메모'),
                 hintText: 'ex) 라면, 우유, 세제...',
               ),
+              maxLines: 5,
+              minLines: 1,
               controller: descriptionEC,
             ),
             const SizedBox(height: 20),
@@ -116,6 +118,7 @@ class TodoRouteComponent {
                     return BaseNavigator.pop();
                   }
                   TaskModel task = TaskModel(
+                    id: UtilClient.uniqueId(),
                     title: titleEC.text,
                     description: descriptionEC.text,
                     status: TaskStatus.yet,

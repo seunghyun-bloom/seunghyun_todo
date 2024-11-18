@@ -1,6 +1,7 @@
 enum TaskStatus { yet, now, done }
 
 class TaskModel {
+  final String id;
   final String title;
   final String? description;
   final TaskStatus status;
@@ -8,6 +9,7 @@ class TaskModel {
   final int lastUpdatedAt;
 
   TaskModel({
+    required this.id,
     required this.title,
     this.description,
     required this.status,
@@ -23,6 +25,7 @@ class TaskModel {
     int? lastUpdatedAt,
   }) {
     return TaskModel(
+      id: id,
       title: title ?? this.title,
       description: description ?? this.description,
       status: status ?? this.status,

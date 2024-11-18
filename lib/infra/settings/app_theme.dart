@@ -67,15 +67,15 @@ class AppTheme {
 }
 
 class AppThemeColors {
-  Color green = const Color(0xFF00cc60); // main1
-  Color deepGreen = const Color(0xFF00a700); //  main2
-  Color orange = const Color(0xFFff9f23); //  main3
-  Color yellow = const Color(0xffffdf20); //  main4
-  Color black = const Color(0xFF111111); //  sec1
-  Color gray = const Color(0xFF767676); //  sec2
-  Color lightGray = const Color(0xFFeeeeee); //  sec3
-  Color red = const Color(0xFFFF0000); //  sec4
-  Color deepNavy = const Color(0xFF1A1C23); //  sec5
+  Color green = const Color(0xFF00cc60);
+  Color deepGreen = const Color(0xFF00a700);
+  Color orange = const Color(0xFFff9f23);
+  Color yellow = const Color(0xffffdf20);
+  Color black = const Color(0xFF111111);
+  Color gray = const Color(0xFF767676);
+  Color lightGray = const Color(0xFFeeeeee);
+  Color red = const Color(0xFFFF0000);
+  Color deepNavy = const Color(0xFF1A1C23);
   Color white = Colors.white;
 }
 

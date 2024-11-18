@@ -1,21 +1,20 @@
 import 'package:get/get.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
+import 'package:seunghyun_todo/infra/router/base_navigator.dart';
+import 'package:seunghyun_todo/routes/todo/detail/todo_detail_route.dart';
 import 'package:seunghyun_todo/routes/todo/todo_route_component.dart';
 
 class TodoRouteController extends GetxController {
-  // ! ---- core ----
-
-  initialize() {}
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   // ! ---- 할일 목록 ----
+
   List<TaskModel> tasks = [];
 
-  // ! ---- 할일 제어 ----
+  // ! ---- 할일 리스트 아이템 ----
+
+  onTapTask(TaskModel model) {
+    BaseNavigator.bottomSheet(TodoDetailRoute(model: model));
+  }
+
   onStatusChanged(TaskModel model, TaskStatus newStatus) {
     TaskModel updatedTaks = model.copyWith(
       status: newStatus,
@@ -33,6 +32,7 @@ class TodoRouteController extends GetxController {
   }
 
   // ! ---- FAB ----
+
   onTapFAB() {
     return Get.dialog(TodoRouteComponent.createDialog()).then((result) {
       if (result is TaskModel) {

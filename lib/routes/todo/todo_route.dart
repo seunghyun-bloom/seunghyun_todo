@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
+import 'package:seunghyun_todo/infra/settings/app_theme.dart';
 import 'package:seunghyun_todo/routes/todo/todo_route_component.dart';
 import 'package:seunghyun_todo/routes/todo/todo_route_controller.dart';
 
@@ -25,6 +26,7 @@ class TodoRoute extends StatelessWidget {
                 model: model,
                 onStatusChanged: controller.onStatusChanged,
                 onDeleted: controller.onDeleted,
+                onTap: controller.onTapTask,
               );
             },
           );
@@ -34,6 +36,8 @@ class TodoRoute extends StatelessWidget {
         init: TodoRouteController(),
         builder: (controller) {
           return FloatingActionButton(
+            backgroundColor: AppTheme.colors.black,
+            foregroundColor: AppTheme.colors.white,
             onPressed: controller.onTapFAB,
             child: const Icon(Icons.add),
           );

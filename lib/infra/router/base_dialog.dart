@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:seunghyun_todo/infra/components/core/custom_buttons.dart';
+// import 'package:seunghyun_todo/infra/components/core/custom_buttons.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';
 
@@ -130,18 +130,42 @@ class BaseDialog {
   }) {
     List<Widget> buttons = [];
     if (buttonLabels.length == 1) {
-      CustomElevatedButton button = CustomElevatedButton(
-        title: buttonLabels.first,
-        onTap: () => BaseNavigator.pop(true),
+      ElevatedButton button = ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(AppTheme.colors.black),
+          foregroundColor: WidgetStatePropertyAll(AppTheme.colors.white),
+          overlayColor: WidgetStatePropertyAll(AppTheme.colors.white.withOpacity(0.1)),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        child: Text(buttonLabels.first),
+        onPressed: () => BaseNavigator.pop(true),
       );
       buttons.add(Expanded(child: button));
     } else {
       for (int i = 0; i < 2; i++) {
-        CustomElevatedButton button = CustomElevatedButton(
-          backgroundColor: i == 0 ? AppTheme.colors.lightGray : secondButtonColor ?? AppTheme.colors.green,
-          foregroundColor: i == 0 ? AppTheme.colors.gray : secondButtonTextColor ?? Colors.white,
-          title: buttonLabels[i],
-          onTap: () => BaseNavigator.pop(i == 1),
+        ElevatedButton button = ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.lightGray : secondButtonColor ?? AppTheme.colors.black,
+            ),
+            foregroundColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.gray : secondButtonTextColor ?? Colors.white,
+            ),
+            overlayColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.black.withOpacity(0.1) : AppTheme.colors.white.withOpacity(0.1),
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+          child: Text(buttonLabels[i]),
+          onPressed: () => BaseNavigator.pop(i == 1),
         );
         buttons.add(
           Expanded(child: button),
@@ -276,18 +300,47 @@ class BaseDialog {
   }) {
     List<Widget> buttons = [];
     if (buttonLabels.length == 1) {
-      CustomElevatedButton button = CustomElevatedButton(
-        title: buttonLabels.first,
-        onTap: () => BaseNavigator.pop(true),
+      ElevatedButton button = ElevatedButton(
+        style: ButtonStyle(
+          padding: WidgetStatePropertyAll(
+            const EdgeInsets.symmetric(
+              vertical: 12,
+            ),
+          ),
+          backgroundColor: WidgetStatePropertyAll(AppTheme.colors.black),
+          foregroundColor: WidgetStatePropertyAll(AppTheme.colors.white),
+          overlayColor: WidgetStatePropertyAll(AppTheme.colors.white.withOpacity(0.1)),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        child: Text(buttonLabels.first),
+        onPressed: () => BaseNavigator.pop(true),
       );
       buttons.add(Expanded(child: button));
     } else {
       for (int i = 0; i < 2; i++) {
-        CustomElevatedButton button = CustomElevatedButton(
-          backgroundColor: i == 0 ? AppTheme.colors.lightGray : secondButtonColor ?? AppTheme.colors.green,
-          foregroundColor: i == 0 ? AppTheme.colors.gray : secondButtonTextColor ?? Colors.white,
-          title: buttonLabels[i],
-          onTap: () => BaseNavigator.pop(i == 1),
+        ElevatedButton button = ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.lightGray : secondButtonColor ?? AppTheme.colors.black,
+            ),
+            foregroundColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.gray : secondButtonTextColor ?? Colors.white,
+            ),
+            overlayColor: WidgetStatePropertyAll(
+              i == 0 ? AppTheme.colors.black.withOpacity(0.1) : AppTheme.colors.white.withOpacity(0.1),
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+          child: Text(buttonLabels[i]),
+          onPressed: () => BaseNavigator.pop(i == 1),
         );
         buttons.add(
           Expanded(child: button),
@@ -322,7 +375,7 @@ class BaseDialog {
                     padding: const EdgeInsets.only(bottom: 24),
                     child: Text(
                       title,
-                      style: AppTheme.textStyles.semibold24,
+                      style: AppTheme.textStyles.semibold18Black,
                     ),
                   );
                 }
