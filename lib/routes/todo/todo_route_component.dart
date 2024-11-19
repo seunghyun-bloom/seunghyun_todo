@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:seunghyun_todo/infra/components/core/custom_container.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
+import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 
 class TodoDetailRouteController extends GetxController {
   // ! ---- core ----
@@ -26,8 +27,17 @@ class TodoDetailRouteController extends GetxController {
   bool isEditMode = false;
 
   onTapEditButton() {
-    isEditMode = !isEditMode;
-    update();
+    if (!isEditMode) {
+      isEditMode = !isEditMode;
+      update();
+    } else {
+      TaskModel newModel = task.copyWith(
+        title: title,
+        description: description,
+        lastUpdatedAt: DateTime.now().millisecondsSinceEpoch,
+      );
+      BaseNavigator.pop(newModel);
+    }
   }
 
   // ! ---- 타이틀 ----

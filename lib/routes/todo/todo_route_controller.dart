@@ -12,7 +12,15 @@ class TodoRouteController extends GetxController {
   // ! ---- 할일 리스트 아이템 ----
 
   onTapTask(TaskModel model) {
-    BaseNavigator.bottomSheet(TodoDetailRoute(model: model));
+    BaseNavigator.bottomSheet(TodoDetailRoute(model: model)).then((value) {
+      if (value is TaskModel) {
+        int index = tasks.indexWhere((e) => e.id == value.id);
+        if (index != -1) {
+          tasks[index] = value;
+          update();
+        }
+      }
+    });
   }
 
   onStatusChanged(TaskModel model, TaskStatus newStatus) {

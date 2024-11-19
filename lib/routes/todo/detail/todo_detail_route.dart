@@ -12,60 +12,68 @@ class TodoDetailRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(Icons.close),
-        ),
-        title: Text(
-          FormatClient.taskStatus(model.status),
-          style: TextStyle(
-            color: UtilClient.statusColor(model.status),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(Icons.close),
           ),
-        ),
-        centerTitle: true,
-        actions: [
-          GetBuilder(
-            init: TodoDetailRouteController(model),
-            tag: model.id,
-            builder: (controller) {
-              return TodoDetailRouteComponents.editButton(
-                isEditMode: controller.isEditMode,
-                onTap: controller.onTapEditButton,
-              );
-            },
-          )
-        ],
-      ),
-      body: GetBuilder(
-        init: TodoDetailRouteController(model),
-        tag: model.id,
-        builder: (controller) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              child: Column(
-                children: [
-                  TodoDetailRouteComponents.title(
-                    title: controller.title,
-                    isEditMode: controller.isEditMode,
-                    onChanged: controller.onTitleChanged,
-                  ),
-                  const SizedBox(height: 12),
-                  TodoDetailRouteComponents.description(
-                    description: controller.description,
-                    isEditMode: controller.isEditMode,
-                    onChanged: controller.onDescriptionChanged,
-                  ),
-                ],
-              ),
+          title: Text(
+            FormatClient.taskStatus(model.status),
+            style: TextStyle(
+              color: UtilClient.statusColor(model.status),
             ),
-          );
-        },
+          ),
+          centerTitle: true,
+          actions: [
+            GetBuilder(
+              init: TodoDetailRouteController(model),
+              tag: model.id,
+              builder: (controller) {
+                return TodoDetailRouteComponents.editButton(
+                  isEditMode: controller.isEditMode,
+                  onTap: controller.onTapEditButton,
+                );
+              },
+            )
+          ],
+        ),
+        body: GetBuilder(
+          init: TodoDetailRouteController(model),
+          tag: model.id,
+          builder: (controller) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                child: Column(
+                  children: [
+                    TodoDetailRouteComponents.title(
+                      title: controller.title,
+                      isEditMode: controller.isEditMode,
+                      onChanged: controller.onTitleChanged,
+                    ),
+                    const SizedBox(height: 34),
+                    TodoDetailRouteComponents.description(
+                      description: controller.description,
+                      isEditMode: controller.isEditMode,
+                      onChanged: controller.onDescriptionChanged,
+                    ),
+                    const SizedBox(height: 34),
+                    TodoDetailRouteComponents.date(
+                      date: model.lastUpdatedAt,
+                      isEditMode: controller.isEditMode,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

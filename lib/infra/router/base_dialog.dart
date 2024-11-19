@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-// import 'package:seunghyun_todo/infra/components/core/custom_buttons.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';
 
@@ -302,8 +301,8 @@ class BaseDialog {
     if (buttonLabels.length == 1) {
       ElevatedButton button = ElevatedButton(
         style: ButtonStyle(
-          padding: WidgetStatePropertyAll(
-            const EdgeInsets.symmetric(
+          padding: const WidgetStatePropertyAll(
+            EdgeInsets.symmetric(
               vertical: 12,
             ),
           ),
