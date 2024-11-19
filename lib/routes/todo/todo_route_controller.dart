@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
+import 'package:seunghyun_todo/infra/router/base_dialog.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/tools/property_client.dart';
 import 'package:seunghyun_todo/routes/todo/detail/todo_detail_route.dart';
@@ -40,6 +41,7 @@ class TodoRouteController extends GetxController {
         int index = tasks.indexWhere((e) => e.id == value.id);
         if (index != -1) {
           tasks[index] = value;
+          BaseDialog.showToast('할일이 수정되었습니다');
           updateStorage();
           update();
         }
@@ -55,12 +57,14 @@ class TodoRouteController extends GetxController {
     int index = tasks.indexOf(model);
     tasks.remove(model);
     tasks.insert(index, updatedTaks);
+    BaseDialog.showToast('상태가 변경되었습니다');
     updateStorage();
     update();
   }
 
   onDeleted(TaskModel model) {
     tasks.remove(model);
+    BaseDialog.showToast('할일이 삭제되었습니다');
     updateStorage();
     update();
   }
@@ -71,6 +75,7 @@ class TodoRouteController extends GetxController {
     return Get.dialog(TodoRouteComponent.createDialog()).then((result) {
       if (result is TaskModel) {
         tasks.add(result);
+        BaseDialog.showToast('할일이 추가되었습니다');
         updateStorage();
         update();
       }

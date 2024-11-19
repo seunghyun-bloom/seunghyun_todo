@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:seunghyun_todo/infra/components/custom_container.dart';
 import 'package:seunghyun_todo/infra/models/task_model.dart';
 import 'package:seunghyun_todo/infra/router/base_navigator.dart';
 import 'package:seunghyun_todo/infra/settings/app_theme.dart';
@@ -71,14 +72,11 @@ class TodoRouteComponent {
     TextEditingController titleEC = TextEditingController();
     TextEditingController descriptionEC = TextEditingController();
 
-    return Center(
-      child: Container(
+    return Dialog(
+      backgroundColor: AppTheme.colors.white,
+      child: CustomContainer(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.all(45),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
