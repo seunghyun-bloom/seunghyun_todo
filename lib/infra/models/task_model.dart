@@ -17,6 +17,28 @@ class TaskModel {
     required this.lastUpdatedAt,
   });
 
+  factory TaskModel.fromMap(Map<String, dynamic> map) {
+    return TaskModel(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      status: TaskStatus.values.byName(map['status']),
+      createdAt: map['createdAt'],
+      lastUpdatedAt: map['lastUpdatedAt'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'status': status.name,
+      'createdAt': createdAt,
+      'lastUpdatedAt': lastUpdatedAt,
+    };
+  }
+
   TaskModel copyWith({
     String? title,
     String? description,
